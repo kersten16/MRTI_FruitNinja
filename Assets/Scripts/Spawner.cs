@@ -16,8 +16,8 @@ public class Spawner : MonoBehaviour
     public float minSpawnDelay = 0.25f;
     public float maxSpawnDelay = 1f;
 
-    public float minAngle = -15;
-    public float maxAngle = 15;
+    public float minAngle = -20;
+    public float maxAngle = 20;
 
     public float minForce = 18;
     public float maxForce = 25;

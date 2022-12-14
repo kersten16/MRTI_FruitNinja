@@ -8,14 +8,18 @@ public class GameManager : MonoBehaviour
 {
     
     public Text scoreText;
+    private int comboTimer=30;
     private int score;
-    public int combo = 1;
+    public int combo = 0;
+    public int bonus=1;
     private Blade blade;
     private Spawner spawn;
     public Image fadeImage;
+    private Bonus comboBonus;
 
     private void Awake()
     {
+        comboBonus =  FindObjectOfType<Bonus>();
         blade =  FindObjectOfType<Blade>();
         spawn = FindObjectOfType<Spawner>();
     }
@@ -31,6 +35,8 @@ public class GameManager : MonoBehaviour
         blade.enabled=true;
         spawn.enabled=true;
         score=0;
+        combo=0;
+        bonus=1;
         scoreText.text = score.ToString();
 
         ClearScene();
@@ -53,18 +59,33 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore(int points)
     {
-        //Following code enables combo scoring for multiple fruit hit in the same strike. Disable for now
-        // if(blade.sequence){
-        //     combo= Math.Min(combo+1,5);
-        // }else{
-        //     combo=1;
-        // }
-
-
-        score+=(points*combo);
+        if(CheckCombo()){
+            bonus=2;
+            Invoke(nameof(ResetBonus), comboTimer);
+        }
+        score+=(points*bonus);
         scoreText.text = score.ToString();
 
     }
+
+    public bool CheckCombo(){
+       //Following code enables combo scoring for multiple fruit hit in the same strike. Disable for now
+        if(blade.sequence){
+            combo+=1;
+        }else{
+            combo=0;
+        }
+        comboBonus.updateScore(combo);
+        return comboBonus.active;
+    }
+
+    
+
+private void ResetBonus()
+{
+    bonus=1;
+    comboBonus.Reset();
+}
 
     public void Explode()
     {

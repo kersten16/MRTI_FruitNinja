@@ -7,7 +7,7 @@ public class Blade : MonoBehaviour
 
     private Camera mainCamera;
     private Collider bladeCollider;
-    private TrailRenderer bladeTrail;
+    public TrailRenderer bladeTrail;
 
     public bool slicing {get; private set;}
     public bool sequence;
