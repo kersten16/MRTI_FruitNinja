@@ -30,23 +30,16 @@ public class Blade : MonoBehaviour
         StopSlicing();
     }
 
-     private void OnDisable()
+    private void OnDisable()
     {
         StopSlicing();
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
-
-            StartSlicing();
-
-        } else if( Input.GetMouseButtonUp(0)){
-            StopSlicing();
-
-        } else if (slicing){
-            ContinueSlicing();
-        }
+        if( Input.GetMouseButtonDown(0) ) StartSlicing(); 
+        else if( Input.GetMouseButtonUp(0) ) StopSlicing(); 
+        else if( slicing ) ContinueSlicing();
     }
 
     private void StartSlicing()
@@ -87,5 +80,6 @@ public class Blade : MonoBehaviour
 
         transform.position = newPosition;
 
+        
     }
 }

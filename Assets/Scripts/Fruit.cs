@@ -17,10 +17,9 @@ public class Fruit : MonoBehaviour
 
    private void Awake()
    {
-    fruitCollider=GetComponent<Collider>();
-    fruitRigidbody=GetComponent<Rigidbody>();
-    juiceParticleEffect = GetComponentInChildren<ParticleSystem>();
-
+        fruitCollider=GetComponent<Collider>();
+        fruitRigidbody=GetComponent<Rigidbody>();
+        juiceParticleEffect = GetComponentInChildren<ParticleSystem>();
    }
 
    private void Slice(Vector3 direction,Vector3 position, float force)
@@ -48,7 +47,7 @@ public class Fruit : MonoBehaviour
    {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Sliced");
+            //Debug.Log("Sliced");
             Blade blade = other.GetComponent<Blade>();
             Slice(blade.direction, blade.transform.position, blade.sliceForce);
             blade.sequence=true;

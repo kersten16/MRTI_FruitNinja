@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         bonus=1;
         scoreText.text = score.ToString();
 
+        ResetBonus();
         ClearScene();
     }
 
@@ -59,7 +60,8 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseScore(int points)
     {
-        if(CheckCombo()){
+        if(CheckCombo())
+        {
             bonus=2;
             Invoke(nameof(ResetBonus), comboTimer);
         }
@@ -69,23 +71,20 @@ public class GameManager : MonoBehaviour
     }
 
     public bool CheckCombo(){
-       //Following code enables combo scoring for multiple fruit hit in the same strike. Disable for now
-        if(blade.sequence){
-            combo+=1;
-        }else{
-            combo=0;
-        }
+        //Following code enables combo scoring for multiple fruit hit in the same strike. Disable for now
+        if (blade.sequence) combo+=1;
+        else combo = 0;
         comboBonus.updateScore(combo);
         return comboBonus.active;
     }
 
     
 
-private void ResetBonus()
-{
-    bonus=1;
-    comboBonus.Reset();
-}
+    private void ResetBonus()
+    {
+        bonus=1;
+        comboBonus.Reset();
+    }
 
     public void Explode()
     {
@@ -99,7 +98,7 @@ private void ResetBonus()
         yield return new WaitForSecondsRealtime(0.5f);
         float elapsed = 0f;
         float duration = 0.5f;
-        while( elapsed<duration)
+        while(elapsed<duration)
         {
             float fade = Mathf.Clamp01(elapsed/duration);
             fadeImage.color = Color.Lerp(Color.clear, Color.white, fade);
@@ -113,7 +112,7 @@ private void ResetBonus()
 
         NewGame();
         elapsed =0f;
-        while( elapsed<duration)
+        while(elapsed<duration)
         {
             float fade = Mathf.Clamp01(elapsed/duration);
             fadeImage.color = Color.Lerp(Color.white, Color.clear,  fade);
