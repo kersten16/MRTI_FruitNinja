@@ -37,9 +37,9 @@ public class Blade : MonoBehaviour
 
     private void Update()
     {
-        if( Input.GetMouseButtonDown(0) ) StartSlicing(); 
+        /*if( Input.GetMouseButtonDown(0) ) StartSlicing(); 
         else if( Input.GetMouseButtonUp(0) ) StopSlicing(); 
-        else if( slicing ) ContinueSlicing();
+        else if( slicing )*/ ContinueSlicing();
     }
 
     private void StartSlicing()
