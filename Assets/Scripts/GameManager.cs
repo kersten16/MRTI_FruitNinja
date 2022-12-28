@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         blade.enabled=true;
-        spawn.enabled=true;
+       //spawn.enabled=true;
         score=0;
         combo=0;
         bonus=1;

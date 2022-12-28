@@ -9,6 +9,8 @@ public class Spawner : MonoBehaviour
     public GameObject[] fruitPrefabs;
 
     public GameObject bombPrefab;
+
+    public bool isVisible = false;
     
     [Range(0f,1f)]
     public float bombChance = 0.05f;
@@ -33,6 +35,12 @@ public class Spawner : MonoBehaviour
     {
         StartCoroutine(Spawn());
     }
+
+    /*private void Start()
+    {
+         StartCoroutine(Spawn());
+    }*/
+    
      private void OnDisable()
     {
         StopAllCoroutines();

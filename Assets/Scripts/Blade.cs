@@ -21,7 +21,7 @@ public class Blade : MonoBehaviour
         bladeCollider = GetComponent<Collider>();
         mainCamera=Camera.main;
         bladeTrail = GetComponentInChildren<TrailRenderer>();
-        
+        StartSlicing(); 
 
     }
 
