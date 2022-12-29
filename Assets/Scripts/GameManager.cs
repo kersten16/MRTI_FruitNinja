@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     
-    public Text scoreText;
+    public static Text scoreText;
     private int comboTimer=30;
     private int score;
     public int combo = 0;

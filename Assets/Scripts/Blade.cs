@@ -16,12 +16,15 @@ public class Blade : MonoBehaviour
     public float minSliceVelocity = 0.01f;
     public float sliceForce = 5f;
 
+    Vector3 lastPos;
+
     private void Awake()
     {
         bladeCollider = GetComponent<Collider>();
         mainCamera=Camera.main;
         bladeTrail = GetComponentInChildren<TrailRenderer>();
         StartSlicing(); 
+        lastPos = transform.position;
 
     }
 
@@ -47,10 +50,10 @@ public class Blade : MonoBehaviour
         
         bladeCollider.enabled=true;
         
-        Vector3 newPosition= mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * -1));
-        newPosition.z = 0f;
+        //Vector3 newPosition= mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * -1));
+        //newPosition.z = 0f;
 
-        transform.position = newPosition;
+        //transform.position = newPosition;
         slicing =true;
 
         bladeTrail.enabled=true;
@@ -69,17 +72,28 @@ public class Blade : MonoBehaviour
 
     private void ContinueSlicing()
     {
-        Vector3 newPosition= mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * -1));
+        //Vector3 newPosition= mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * -1));
+        //newPosition.z = 0f;
+
+        
+
+        //transform.position = newPosition;
+        Vector3 newPosition= transform.position;
         newPosition.z = 0f;
-
-        direction= newPosition-transform.position;
-
-        float velocity = direction.magnitude / Time.deltaTime;
-
-        bladeCollider.enabled = velocity > minSliceVelocity;
-
         transform.position = newPosition;
 
+        direction= newPosition-lastPos;
+        
+        bladeCollider.enabled = true;
+
+        /**Vector3 newPosition= transform.position;
+        newPosition.z = 0f;
+        direction= newPosition-lastPos;**/
+
+        //float velocity = direction.magnitude / Time.deltaTime;
+
+        /**bladeCollider.enabled = velocity > minSliceVelocity;
+        lastPos = newPosition;£*/
         
     }
 }
