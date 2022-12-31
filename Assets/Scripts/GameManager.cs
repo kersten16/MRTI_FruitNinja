@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     
-    public static Text scoreText;
+    public Text scoreText;
     private int comboTimer=30;
     private int score;
     public int combo = 0;
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         blade.enabled=true;
-       //spawn.enabled=true;
+        spawn.enabled=true;
         score=0;
         combo=0;
         bonus=1;
@@ -88,8 +88,8 @@ public class GameManager : MonoBehaviour
 
     public void Explode()
     {
-        blade.enabled=false;
-        spawn.enabled=false;
+        blade.enabled = false;
+        spawn.enabled = false;
         StartCoroutine(ExplodeSequence());
     }
 
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         NewGame();
+
         elapsed =0f;
         while(elapsed<duration)
         {

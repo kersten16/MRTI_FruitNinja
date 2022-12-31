@@ -22,7 +22,7 @@ public class Blade : MonoBehaviour
     {
         bladeCollider = GetComponent<Collider>();
         mainCamera=Camera.main;
-        bladeTrail = GetComponentInChildren<TrailRenderer>();
+        //bladeTrail = GetComponentInChildren<TrailRenderer>();
         StartSlicing(); 
         lastPos = transform.position;
 
@@ -45,55 +45,41 @@ public class Blade : MonoBehaviour
         else if( slicing )*/ ContinueSlicing();
     }
 
+    private Vector3 GetNewPosition()
+    {
+        //Vector3 imgtgt_position = gameObject.transform.parent.position; //transform.position;
+        //newPosition.z = 0f;
+        return //mainCamera.WorldToScreenPoint(imgtgt_position);
+            transform.position;
+    }
+
     private void StartSlicing()
     {
         
-        bladeCollider.enabled=true;
-        
-        //Vector3 newPosition= mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * -1));
-        //newPosition.z = 0f;
+        bladeCollider.enabled = true;
+        transform.position = GetNewPosition();
+        slicing = true;
 
-        //transform.position = newPosition;
-        slicing =true;
-
-        bladeTrail.enabled=true;
-        bladeTrail.Clear();
+        //bladeTrail.enabled=true;
+        //bladeTrail.Clear();
         
     }
 
     private void StopSlicing()
     {
-        slicing=false;
-        bladeCollider.enabled=false;
-        bladeTrail.enabled=false;
+        slicing = false;
+        bladeCollider.enabled = false;
+        //bladeTrail.enabled=false;
         sequence=false;
 
     }
 
     private void ContinueSlicing()
     {
-        //Vector3 newPosition= mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * -1));
-        //newPosition.z = 0f;
-
-        
-
-        //transform.position = newPosition;
-        Vector3 newPosition= transform.position;
-        newPosition.z = 0f;
-        transform.position = newPosition;
-
-        direction= newPosition-lastPos;
-        
-        bladeCollider.enabled = true;
-
-        /**Vector3 newPosition= transform.position;
-        newPosition.z = 0f;
-        direction= newPosition-lastPos;**/
-
-        //float velocity = direction.magnitude / Time.deltaTime;
-
-        /**bladeCollider.enabled = velocity > minSliceVelocity;
-        lastPos = newPosition;£*/
-        
+        transform.position = GetNewPosition();
+        direction= transform.position - lastPos;
+        float velocity = direction.magnitude / Time.deltaTime;
+        bladeCollider.enabled = velocity > minSliceVelocity;
+        lastPos = transform.position;
     }
 }

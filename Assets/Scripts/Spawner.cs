@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private Collider spawnArea;
-
     public GameObject[] fruitPrefabs;
 
     public GameObject bombPrefab;
@@ -26,20 +24,19 @@ public class Spawner : MonoBehaviour
 
     public float maxLifetime = 5f;
 
-    private void Awake()
-    {
-        spawnArea=GetComponent<Collider>();
-    }
+    public Vector3 spawnBoundsSize;
 
     private void OnEnable()
     {
         StartCoroutine(Spawn());
     }
 
-    /*private void Start()
+    /*
+    private void Start()
     {
          StartCoroutine(Spawn());
-    }*/
+    }
+    */
     
      private void OnDisable()
     {
@@ -51,25 +48,34 @@ public class Spawner : MonoBehaviour
         //two second delay on new level before spawn
         yield return new WaitForSeconds(2f);
 
-        while (enabled){
+        while (enabled)
+        {
+            Bounds spawnBounds = new Bounds(transform.position, spawnBoundsSize);
             GameObject prefab= fruitPrefabs[Random.Range(0,fruitPrefabs.Length)];
 
-            if(Random.value < bombChance){
+            if(Random.value < bombChance)
+            {
                 prefab=bombPrefab;
             }
 
             Vector3 position= new Vector3();
-            position.x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x);
-            position.y = Random.Range(spawnArea.bounds.min.y, spawnArea.bounds.max.y);
-            position.z = Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z);
+            Debug.Log(spawnBounds); 
+            Vector3 min = spawnBounds.min;
+            Vector3 max = spawnBounds.max;
+            position.x = Random.Range(min.x, max.x);
+            position.y = Random.Range(min.y, max.y);
+            position.z = Random.Range(min.z, max.z);
 
-            Quaternion rotation = Quaternion.Euler(0f,0f, Random.Range(minAngle,maxAngle));
+            // random rotation but always towards 'up' of the parent
+            Quaternion rotation = transform.parent.rotation * Quaternion.Euler(Random.Range(minAngle, maxAngle), 0f, Random.Range(minAngle,maxAngle));
+            
 
-            GameObject fruit =Instantiate(prefab, position, rotation);
+            GameObject fruit = Instantiate(prefab, position, rotation);
+            fruit.transform.localScale = new Vector3(0.03f, 0.03f, 0.03f);
 
-            Destroy(fruit,maxLifetime);
+            Destroy(fruit, maxLifetime);
 
-            float force= Random.Range(minForce,maxForce);
+            float force= Random.Range(minForce,maxForce) / 10;
             fruit.GetComponent<Rigidbody>().AddForce(fruit.transform.up * force, ForceMode.Impulse);
 
             yield return new WaitForSeconds(Random.Range(minSpawnDelay,maxSpawnDelay));

@@ -35,7 +35,7 @@ public class Fruit : MonoBehaviour
 
         Rigidbody[] slices = Sliced.GetComponentsInChildren<Rigidbody>();
 
-        foreach ( Rigidbody slice in slices)
+        foreach(Rigidbody slice in slices)
         {
             slice.velocity=fruitRigidbody.velocity;
             slice.AddForceAtPosition(direction * force, position, ForceMode.Impulse);
